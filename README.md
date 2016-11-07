@@ -23,7 +23,7 @@ go run main.go 127.0.0.1:8080
 ## 敏感词
 
 ### 1.查找敏感词
-输入一段文本，返回敏感词及敏感词替换为*号后的文本
+输入一段文本，返回敏感词及敏感词替换为*号后的文本(字母自动转换为小写)
 
 * **Request:**  /v1/query
 * **Request Method:** GET or POST 
@@ -45,7 +45,7 @@ go run main.go 127.0.0.1:8080
 
 ### 2.添加敏感词
 
-添加一组敏感词
+添加一组敏感词(字母自动转换为小写)
 
 * **Request:**  /v1/black_words 
 * **Request Method:** POST 
@@ -65,7 +65,7 @@ go run main.go 127.0.0.1:8080
 
 ### 3.删除敏感词
 
-删除一组敏感词
+删除一组敏感词(字母自动转换为小写)
 
 * **Request:**  /v1/black_words 
 * **Request Method:** DELETE 
@@ -97,6 +97,8 @@ go run main.go 127.0.0.1:8080
 
 ### 1.添加白名单（前缀）词组
 
+字母自动转换为小写
+
 * **Request:**  /v1/white_prefix_words
 * **Request Method:** POST 
 * **Params**:
@@ -114,6 +116,8 @@ go run main.go 127.0.0.1:8080
 ```
 
 ### 2.添加白名单（后缀）词组
+
+字母自动转换为小写
 
 * **Request:**  /v1/white_suffix_words 
 * **Request Method:** POST 
