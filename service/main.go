@@ -85,7 +85,7 @@ func queryWords(w http.ResponseWriter, r *http.Request) {
 
 	if text != "" {
 		res.Code = 1
-		ok, keyword, newText := trie.BlackTrie().Query(text)
+		ok, keyword, newText := trie.BlackTrie().Query(strings.ToLower(text))
 		if ok {
 			res.Keywords = keyword
 			res.Text = newText
@@ -118,7 +118,7 @@ func addBlackWords(w http.ResponseWriter, r *http.Request) {
 		i := 0
 		words := strings.Split(q, ",")
 		for _, s := range words {
-			trie.BlackTrie().Add(strings.Trim(s, " "))
+			trie.BlackTrie().Add(strings.ToLower(strings.Trim(s, " ")))
 			i++
 		}
 
@@ -153,7 +153,7 @@ func deleteBlackWords(w http.ResponseWriter, r *http.Request) {
 		i := 0
 		words := strings.Split(q, ",")
 		for _, s := range words {
-			trie.BlackTrie().Del(strings.Trim(s, " "))
+			trie.BlackTrie().Del(strings.ToLower(strings.Trim(s, " ")))
 			i++
 		}
 
@@ -196,7 +196,7 @@ func whitePrefixWords(w http.ResponseWriter, r *http.Request) {
 			i := 0
 			words := strings.Split(q, ",")
 			for _, s := range words {
-				trie.WhitePrefixTrie().Add(strings.Trim(s, " "))
+				trie.WhitePrefixTrie().Add(strings.ToLower(strings.Trim(s, " ")))
 				i++
 			}
 
@@ -231,7 +231,7 @@ func whiteSuffixWords(w http.ResponseWriter, r *http.Request) {
 			i := 0
 			words := strings.Split(q, ",")
 			for _, s := range words {
-				trie.WhiteSuffixTrie().Add(strings.Trim(s, " "))
+				trie.WhiteSuffixTrie().Add(strings.ToLower(strings.Trim(s, " ")))
 				i++
 			}
 
