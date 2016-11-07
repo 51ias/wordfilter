@@ -61,7 +61,7 @@ func loadByLine(path string) (err error) {
 
 		if word := strings.TrimSpace(string(line)); word != "" {
 			tmp := strings.Split(word, " ")
-			s := strings.Trim(tmp[0], " ")
+			s := strings.ToLower(strings.Trim(tmp[0], " "))
 			if s == "" {
 				continue
 			}
