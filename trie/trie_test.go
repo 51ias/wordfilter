@@ -44,7 +44,7 @@ func TestDel(t *testing.T) {
 
 	text := "AV AV演员 AV演员色情"
 	expect := ""
-	newText := ""
+	got := ""
 
 	printTrie(trie.Root, t, " |")
 	t.Log("-----------------------")
@@ -52,44 +52,56 @@ func TestDel(t *testing.T) {
 	//删除开头的
 	expect = "AV **** ******"
 	trie.Del("AV")
-	_, _, newText = trie.Query(text)
+	_, _, got = trie.Query(text)
 
-	if newText != expect {
-		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, newText)
+	if got != expect {
+		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, got)
 	}
 	trie.Add("AV")
 
 	// 删除中间的
 	trie.Del("AV演员")
 	expect = "** **演员 ******"
-	_, _, newText = trie.Query(text)
-	if newText != expect {
-		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, newText)
+	_, _, got = trie.Query(text)
+	if got != expect {
+		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, got)
 	}
 	trie.Add("AV演员")
 
 	// 删除后面的
 	trie.Del("AV演员色情")
 	expect = "** **** ****色情"
-	_, _, newText = trie.Query(text)
-	if newText != expect {
-		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, newText)
+	_, _, got = trie.Query(text)
+	if got != expect {
+		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, got)
 	}
 	trie.Add("AV演员色情")
 
 	//删除不存在的敏感词
 	trie.Del("VA演")
 	expect = "** **** ******"
-	_, _, newText = trie.Query(text)
-	if newText != expect {
-		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, newText)
+	_, _, got = trie.Query(text)
+	if got != expect {
+		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, got)
 	}
 
 	trie.Del("AV演员色情表演")
 	expect = "** **** ******"
-	_, _, newText = trie.Query(text)
-	if newText != expect {
-		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, newText)
+	_, _, got = trie.Query(text)
+	if got != expect {
+		t.Errorf("希望得到: %s\n实际得到: %s\n", expect, got)
+	}
+}
+
+func TestDel2(t *testing.T) {
+	trie := NewTrie()
+	trie.Add("中")
+
+	trie.Del("中")
+	words := trie.ReadAll()
+
+	if len(words) > 0 {
+		t.Error("只有一个字的删除失败")
 	}
 }
 

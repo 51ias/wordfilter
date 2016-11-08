@@ -84,6 +84,9 @@ func (t *Trie) cycleDel(node *Node, chars []rune, index int) (shouldDel bool) {
 		} else if n.End {
 			if len(n.Node) == 0 { // 是最后一个节点
 				shouldDel = true
+
+				delete(node.Node, char)
+
 			} else { // 不是最后一个节点
 				n.End = false
 			}
